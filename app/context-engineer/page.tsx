@@ -7,6 +7,7 @@ import ModuleLayout from '../../components/ModuleLayout'
 import { templates } from '../../lib/templates'
 import { generatePrompt } from '../../lib/prompt-generator'
 import { improvePrompt } from '../../lib/ai-assistant'
+import AiPanel from '../../components/AiPanel'
 import { Copy, Download, Sparkles, ArrowRight, Wand2 } from 'lucide-react'
 
 export default function ContextEngineerPage() {
@@ -65,8 +66,8 @@ export default function ContextEngineerPage() {
                 ))}
               </div>
               <button className="btn-secondary" style={{ width: '100%', fontSize: '0.7rem', marginTop: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem' }}
-                onClick={() => router.push('/builder')}>
-                Modo avanzado <ArrowRight size={12} />
+                onClick={() => router.push('/guide')}>
+                ❓ ¿Cómo usar?
               </button>
             </div>
 
@@ -141,6 +142,9 @@ export default function ContextEngineerPage() {
                     onClick={handleGenerate}>
                     <Sparkles size={14} /> Generar Prompt
                   </button>
+                  <div style={{ marginTop: '0.75rem' }}>
+                    <AiPanel compact />
+                  </div>
                 </div>
               )}
 
