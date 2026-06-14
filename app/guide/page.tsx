@@ -71,7 +71,7 @@ export default function GuidePage() {
           background: 'linear-gradient(135deg, var(--color-architect) 0%, var(--color-security) 100%)',
           padding: '2.5rem 2rem', color: 'white',
         }}>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '0.5rem' }}>Cómo Usar DevForge</h1>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '0.5rem' }}>Cómo Usar InGenIA</h1>
           <p style={{ opacity: 0.85, fontSize: '0.9rem', maxWidth: 600 }}>
             Guía interactiva para sacarle el máximo partido a la plataforma en segundos, sin complicaciones.
           </p>

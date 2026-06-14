@@ -1,5 +1,6 @@
 'use client'
 
+import { Clock } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 
 const modules = [
@@ -36,9 +37,9 @@ export default function Sidebar() {
           background: 'var(--accent-gradient)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontWeight: 800, fontSize: '0.9rem', color: 'white',
-        }}>D</div>
+        }}>I</div>
         <div>
-          <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>DevForge</div>
+          <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>InGenIA</div>
           <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)' }}>AI-Augmented Engineering</div>
         </div>
       </div>
@@ -75,8 +76,21 @@ export default function Sidebar() {
         })}
       </nav>
 
+      <div style={{ padding: '0.5rem 0.75rem', borderTop: '1px solid var(--border)' }}>
+        <button onClick={() => router.push('/history')} style={{
+          display: 'flex', alignItems: 'center', gap: '0.5rem',
+          padding: '0.4rem 0.6rem', borderRadius: '0.5rem', width: '100%',
+          border: '1px dashed var(--border)', cursor: 'pointer',
+          background: pathname === '/history' ? 'var(--bg-card-hover)' : 'transparent',
+          color: pathname === '/history' ? 'var(--text-primary)' : 'var(--text-secondary)',
+          fontSize: '0.75rem', textAlign: 'left', transition: 'all 0.15s',
+        }}>
+          <Clock size={14} />
+          <span>Historial</span>
+        </button>
+      </div>
       <div style={{ padding: '0.75rem', borderTop: '1px solid var(--border)', fontSize: '0.7rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
-        DevForge v1.0
+        InGenIA v1.0
       </div>
     </aside>
   )

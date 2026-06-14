@@ -51,7 +51,7 @@ export default function HomePage() {
         <div style={{ padding: '2rem 2.5rem', maxWidth: 1100 }}>
           <div className="animate-in" style={{ marginBottom: '2.5rem' }}>
             <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' }}>
-              DevForge
+              InGenIA
             </h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: 600 }}>
               Las 7 habilidades críticas del desarrollador en la era de la IA. Una plataforma para construirlas.
@@ -88,7 +88,7 @@ export default function HomePage() {
           </div>
 
           <footer style={{ marginTop: '3rem', color: 'var(--text-secondary)', fontSize: '0.75rem', textAlign: 'center', padding: '1rem 0' }}>
-            DevForge — Las 7 habilidades que separan al desarrollador que usa IA del que la orquesta con criterio.
+            InGenIA — Las 7 habilidades que separan al desarrollador que usa IA del que la orquesta con criterio.
           </footer>
         </div>
       </main>
