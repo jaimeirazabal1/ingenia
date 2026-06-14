@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
 import Sidebar from '../../components/Sidebar'
-import { Trash2, ChevronDown, ChevronUp, Copy, Clock, RotateCcw } from 'lucide-react'
+import { Trash2, ChevronDown, ChevronUp, Copy, Clock } from 'lucide-react'
+import { useToast } from '../../components/Toast'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 interface HistoryEntry {
   id: string
@@ -28,12 +29,11 @@ const MODULE_NAMES: Record<string, { label: string; icon: string; color: string 
 }
 
 export default function HistoryPage() {
-  const router = useRouter()
   const [entries, setEntries] = useState<HistoryEntry[]>([])
   const [loading, setLoading] = useState(true)
   const [filterModule, setFilterModule] = useState<string | null>(null)
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
-  const [copiedId, setCopiedId] = useState<string | null>(null)
+  const { toast } = useToast()
 
   const loadHistory = useCallback(async () => {
     setLoading(true)
@@ -44,6 +44,7 @@ export default function HistoryPage() {
       setEntries(data)
     } catch {
       setEntries([])
+      toast('Error al cargar el historial', 'error')
     }
     setLoading(false)
   }, [filterModule])
@@ -53,12 +54,12 @@ export default function HistoryPage() {
   const handleDelete = async (id: string) => {
     await fetch(`/api/history?id=${id}`, { method: 'DELETE' })
     setEntries(prev => prev.filter(e => e.id !== id))
+    toast('Entrada eliminada', 'success')
   }
 
-  const handleCopy = async (text: string, id: string) => {
+  const handleCopy = async (text: string, label: string) => {
     await navigator.clipboard.writeText(text)
-    setCopiedId(id)
-    setTimeout(() => setCopiedId(null), 1500)
+    toast(`${label} copiado al portapapeles`, 'success')
   }
 
   const toggleExpand = (id: string) => {
@@ -121,17 +122,7 @@ export default function HistoryPage() {
             ))}
           </div>
 
-          {/* Loading */}
-          {loading && (
-            <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
-              <div className="animate-spin" style={{
-                width: 24, height: 24, borderRadius: '50%',
-                border: '2px solid var(--border)', borderTopColor: 'var(--accent)',
-                margin: '0 auto 0.75rem', animation: 'spin 0.8s linear infinite',
-              }} />
-              Cargando historial...
-            </div>
-          )}
+          {loading && <LoadingSpinner text="Cargando historial..." />}
 
           {/* Empty state */}
           {!loading && entries.length === 0 && (
@@ -214,14 +205,14 @@ export default function HistoryPage() {
                           display: 'flex', alignItems: 'center', gap: '0.5rem',
                         }}>
                           <span>Prompt</span>
-                          <button onClick={() => handleCopy(entry.prompt, `p-${entry.id}`)} style={{
+                          <button onClick={() => handleCopy(entry.prompt, 'Prompt')} style={{
                             background: 'none', border: 'none', cursor: 'pointer',
-                            color: copiedId === `p-${entry.id}` ? 'var(--accent)' : 'var(--text-secondary)',
+                            color: 'var(--text-secondary)',
                             padding: 0, display: 'flex', alignItems: 'center', gap: '0.25rem',
                             fontSize: '0.65rem',
                           }}>
                             <Copy size={12} />
-                            {copiedId === `p-${entry.id}` ? 'Copiado' : 'Copiar'}
+                            Copiar
                           </button>
                         </div>
                         <pre style={{
@@ -241,14 +232,14 @@ export default function HistoryPage() {
                             display: 'flex', alignItems: 'center', gap: '0.5rem',
                           }}>
                             <span>Resultado</span>
-                            <button onClick={() => handleCopy(entry.result!, `r-${entry.id}`)} style={{
+                            <button onClick={() => handleCopy(entry.result!, 'Resultado')} style={{
                               background: 'none', border: 'none', cursor: 'pointer',
-                              color: copiedId === `r-${entry.id}` ? 'var(--accent)' : 'var(--text-secondary)',
+                              color: 'var(--text-secondary)',
                               padding: 0, display: 'flex', alignItems: 'center', gap: '0.25rem',
                               fontSize: '0.65rem',
                             }}>
                               <Copy size={12} />
-                              {copiedId === `r-${entry.id}` ? 'Copiado' : 'Copiar'}
+                              Copiar
                             </button>
                           </div>
                           <pre style={{
